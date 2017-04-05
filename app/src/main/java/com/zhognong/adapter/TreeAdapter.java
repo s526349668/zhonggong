@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.zhognong.R;
 import com.zhognong.domain.Course;
+import com.zhognong.utils.Uitils;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.MyViewHolder>{
             holder.tv_path.setVisibility(View.GONE);
             holder.parent_name.setVisibility(View.GONE);
             holder.child_name.setVisibility(View.VISIBLE);
+            holder.child_name.setPadding(Uitils.dip2px(context,list.get(position).getLevel()*10),0,0,0);
             holder.child_name.setText(list.get(position).getNode_name());
         }
         //holder.tv_path.setText(pathlist.get(position));

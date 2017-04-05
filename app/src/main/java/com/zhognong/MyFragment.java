@@ -43,6 +43,7 @@ public class MyFragment extends Fragment {
     private List<Course.CourseInfo> courseInfos=new ArrayList();
     private List<String> pathList=new ArrayList<String>();
     private String path;
+    private List<Course.CourseInfo> childList=new ArrayList<Course.CourseInfo>();
     @Override
     public void onCreate(@Nullable Bundle bundle) {
         super.onCreate(bundle);
@@ -56,6 +57,7 @@ public class MyFragment extends Fragment {
      //               pathList.add(path.substring(0,path.length()-1));
                     courseInfo.setIsroot(true);
                     courseInfos.add(courseInfo);
+                    //courseInfo.setLevel(0);
    //                 List<Course.CourseInfo> rootInfos= (List<Course.CourseInfo>) courseInfo.getSub_node();
 //                    for(Course.CourseInfo rootInfo:rootInfos){
 //                        rootInfo.setIsroot(false);
@@ -81,6 +83,17 @@ public class MyFragment extends Fragment {
                 }
         }
     }
+    public void getchildList(Course.CourseInfo courseInfos, int level){
+        if(courseInfos.getSub_node()!=null){
+            for(Course.CourseInfo courseInfo:courseInfos.getSub_node()){
+                    courseInfo.setLevel(level);
+                    childList.add(courseInfo);
+                    if(courseInfo.getSub_node()!=null){
+                        getchildList(courseInfo,courseInfo.getLevel()+1);
+                    }
+            }
+        }
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,33 +112,38 @@ public class MyFragment extends Fragment {
                 Course.CourseInfo parent=courseInfos.get(position);
                 if (courseInfos.get(position).isroot()){//判断是否为父
                     if ((position + 1) == courseInfos.size()) {//判断是否为最后一个元素
-                        Course.CourseInfo clickparent = (Course.CourseInfo) courseInfos.get(clickposition);
-                        treeAdapter.deleteAllChild(clickposition +1, clickparent.getSub_node().size());
-                        treeAdapter.addAllChild(parent.getSub_node(), position -clickparent.getSub_node().size()+1);
-                        clickposition=position-clickparent.getSub_node().size();
+                        treeAdapter.deleteAllChild(clickposition +1, childList.size());
+                        int lastsize= position -childList.size();
+                        childList.clear();
+                        getchildList(parent,2);
+                        treeAdapter.addAllChild(parent.getSub_node(), lastsize+1);
+                        clickposition=lastsize;
                     } else {
                         if (courseInfos.get(position + 1).isroot()) {//如果是父则表示为折叠状态需要添加儿子
                             if(clickposition!=-1){
+                                int lastsize= position -childList.size();
+                                treeAdapter.deleteAllChild(clickposition +1, childList.size());
+                                childList.clear();
+                                getchildList(parent,2);
                                 if(clickposition>position){
-                                    Course.CourseInfo clickparent = (Course.CourseInfo) courseInfos.get(clickposition);
-                                    treeAdapter.deleteAllChild(clickposition +1, clickparent.getSub_node().size());
-                                    treeAdapter.addAllChild(parent.getSub_node(), position + 1);
+                                    treeAdapter.addAllChild(childList, position + 1);
                                     clickposition=position;
                                 }else{
-                                    Course.CourseInfo clickparent = (Course.CourseInfo) courseInfos.get(clickposition);
-                                    treeAdapter.deleteAllChild(clickposition +1, clickparent.getSub_node().size());
-                                    treeAdapter.addAllChild(parent.getSub_node(), position -clickparent.getSub_node().size()+1);
-                                    clickposition=position-clickparent.getSub_node().size();
-
+                                    System.out.println(position);
+                                    System.out.println(childList.size());
+                                    treeAdapter.addAllChild(childList,lastsize+1);
+                                    clickposition=lastsize;
                                 }
                             }else{
+                                getchildList(parent,2);
                                 clickposition=position;
-                                treeAdapter.addAllChild(parent.getSub_node(), position + 1);
+                                treeAdapter.addAllChild(childList, position + 1);
                             }
                           //  treeAdapter.addAllChild(parent.getChildren(), position + 1);
                         } else if (!courseInfos.get(position + 1).isroot()) {//如果是儿子则表示为展开状态需要删除儿子
-                            treeAdapter.deleteAllChild(position + 1, parent.getSub_node().size());
+                            treeAdapter.deleteAllChild(position + 1, childList.size());
                             clickposition=-1;
+                            childList.clear();
                         }
                     }
                 }else {//是儿子你想干啥就干啥吧

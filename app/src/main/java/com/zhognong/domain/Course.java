@@ -30,6 +30,15 @@ public class Course {
         private String dir_type;
         private List<CourseInfo> sub_node;
         private boolean isroot;
+        private int level;
+
+        public int getLevel() {
+            return level;
+        }
+
+        public void setLevel(int level) {
+            this.level = level;
+        }
 
         public boolean isroot() {
             return isroot;
