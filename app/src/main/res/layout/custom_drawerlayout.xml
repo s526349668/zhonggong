@@ -41,7 +41,7 @@
                 android:drawableTop="@mipmap/tab2_exercis"
                 android:paddingTop="5dp"
                 android:id="@+id/examebtn"
-                android:text="考精练"
+                android:text="考练通"
                 android:gravity="center"
                 android:button="@null"
                 android:background="@drawable/navigation_bar_selector"

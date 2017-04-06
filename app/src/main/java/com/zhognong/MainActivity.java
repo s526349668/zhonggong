@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 break;
             case R.id.liveebtn:
                 switchFragment(liveFragment);
-
                 break;
         }
     }

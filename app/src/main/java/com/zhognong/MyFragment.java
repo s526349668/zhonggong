@@ -54,19 +54,8 @@ public class MyFragment extends Fragment {
     public void getNodeName(List<Course.CourseInfo> curriculum){
         for(Course.CourseInfo courseInfo : curriculum){
                 if(courseInfo.getDir_type().equals(Constant.dir_type)){
-     //               pathList.add(path.substring(0,path.length()-1));
                     courseInfo.setIsroot(true);
                     courseInfos.add(courseInfo);
-                    //courseInfo.setLevel(0);
-   //                 List<Course.CourseInfo> rootInfos= (List<Course.CourseInfo>) courseInfo.getSub_node();
-//                    for(Course.CourseInfo rootInfo:rootInfos){
-//                        rootInfo.setIsroot(false);
-//                        courseInfos.add(rootInfo);
-//                    }
-     //               path=null;
-//                    if(courseInfo.getSub_node()!=null){
-//                        getNodeName(courseInfo.getSub_node());
-//                    }
                 }else {
                     if(!TextUtils.isEmpty(courseInfo.getNode_name())){
                         if(!TextUtils.isEmpty(path)){
@@ -74,12 +63,10 @@ public class MyFragment extends Fragment {
                         }else{
                             path=courseInfo.getNode_name()+">";
                         }
-
                     }
                     if(courseInfo.getSub_node()!=null){
                         getNodeName(courseInfo.getSub_node());
                     }
-
                 }
         }
     }
@@ -116,7 +103,7 @@ public class MyFragment extends Fragment {
                         int lastsize= position -childList.size();
                         childList.clear();
                         getchildList(parent,2);
-                        treeAdapter.addAllChild(parent.getSub_node(), lastsize+1);
+                        treeAdapter.addAllChild(childList, lastsize+1);
                         clickposition=lastsize;
                     } else {
                         if (courseInfos.get(position + 1).isroot()) {//如果是父则表示为折叠状态需要添加儿子
@@ -129,8 +116,6 @@ public class MyFragment extends Fragment {
                                     treeAdapter.addAllChild(childList, position + 1);
                                     clickposition=position;
                                 }else{
-                                    System.out.println(position);
-                                    System.out.println(childList.size());
                                     treeAdapter.addAllChild(childList,lastsize+1);
                                     clickposition=lastsize;
                                 }
