@@ -50,20 +50,20 @@ public class TreeAdapter extends RecyclerView.Adapter<TreeAdapter.MyViewHolder>{
     }
     @Override
     public void onBindViewHolder(final TreeAdapter.MyViewHolder holder, int position) {
-        if(list.get(position).isroot()){
+        if(list.get(position).isRoot()){
             holder.tv_path.setVisibility(View.VISIBLE);
             holder.parent_name.setVisibility(View.VISIBLE);
             holder.child_name.setVisibility(View.GONE);
-            holder.parent_name.setText(list.get(position).getNode_name());
+            holder.parent_name.setText(list.get(position).getCourse_name());
         }else {
             holder.tv_path.setVisibility(View.GONE);
             holder.parent_name.setVisibility(View.GONE);
             holder.child_name.setVisibility(View.VISIBLE);
             holder.child_name.setPadding(Uitils.dip2px(context,list.get(position).getLevel()*10),0,0,0);
-            holder.child_name.setText(list.get(position).getNode_name());
+            holder.child_name.setText(list.get(position).getCourse_name());
         }
         //holder.tv_path.setText(pathlist.get(position));
-        holder.parent_name.setText(list.get(position).getNode_name());
+        holder.parent_name.setText(list.get(position).getCourse_name());
 //        Course.CourseInfo courseInfo=list.get(position);
 //        if (list.get(position).getDir_type().equals(Constant.dir_type)){
 //            setdir_type(holder,courseInfo.getNode_name());

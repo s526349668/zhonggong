@@ -7,29 +7,42 @@ import java.util.List;
  */
 
 public class Course {
-    private String dir_type;
-    private List<CourseInfo> sub_node;
+    private int code;
+    private String msg;
+    private CourseInfo data;
 
-    public String getDir_type() {
-        return dir_type;
+    public int getCode() {
+        return code;
     }
 
-    public void setDir_type(String dir_type) {
-        this.dir_type = dir_type;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public List<CourseInfo> getSub_node() {
-        return sub_node;
+    public CourseInfo getData() {
+        return data;
     }
 
-    public void setSub_node(List<CourseInfo> sub_node) {
-        this.sub_node = sub_node;
+    public void setData(CourseInfo data) {
+        this.data = data;
     }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
     public static class CourseInfo{
-        private String node_name;
-        private String dir_type;
-        private List<CourseInfo> sub_node;
-        private boolean isroot;
+        private String course_id;
+        private String course_name;
+        private String course_type;
+        private String is_class;
+        private String expired_date;
+        private List<CourseInfo> sub_courses;
+        private boolean isRoot;
         private int level;
 
         public int getLevel() {
@@ -40,36 +53,60 @@ public class Course {
             this.level = level;
         }
 
-        public boolean isroot() {
-            return isroot;
+        public boolean isRoot() {
+            return isRoot;
         }
 
-        public void setIsroot(boolean isroot) {
-            this.isroot = isroot;
+        public void setRoot(boolean root) {
+            isRoot = root;
         }
 
-        public String getNode_name() {
-            return node_name;
+        public String getCourse_id() {
+            return course_id;
         }
 
-        public void setNode_name(String node_name) {
-            this.node_name = node_name;
+        public void setCourse_id(String course_id) {
+            this.course_id = course_id;
         }
 
-        public String getDir_type() {
-            return dir_type;
+        public String getCourse_name() {
+            return course_name;
         }
 
-        public void setDir_type(String dir_type) {
-            this.dir_type = dir_type;
+        public void setCourse_name(String course_name) {
+            this.course_name = course_name;
         }
 
-        public List<CourseInfo> getSub_node() {
-            return sub_node;
+        public String getCourse_type() {
+            return course_type;
         }
 
-        public void setSub_node(List<CourseInfo> sub_node) {
-            this.sub_node = sub_node;
+        public void setCourse_type(String course_type) {
+            this.course_type = course_type;
+        }
+
+        public String getIs_class() {
+            return is_class;
+        }
+
+        public void setIs_class(String is_class) {
+            this.is_class = is_class;
+        }
+
+        public String getExpired_date() {
+            return expired_date;
+        }
+
+        public void setExpired_date(String expired_date) {
+            this.expired_date = expired_date;
+        }
+
+        public List<CourseInfo> getSub_courses() {
+            return sub_courses;
+        }
+
+        public void setSub_courses(List<CourseInfo> sub_courses) {
+            this.sub_courses = sub_courses;
         }
     }
 }
