@@ -1,9 +1,15 @@
 package com.zhognong.domain;
 
 
+import com.zhognong.dao.CNCourseDao;
+import com.zhognong.dao.CNUserDao;
+import com.zhognong.dao.DaoSession;
+
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.ToOne;
 
 /**
  * Created by Administrator on 2017/4/5.
@@ -20,7 +26,17 @@ public class CNCourse {
     private String lesson_download_count;
     private String parent_path;
     private String belong_user;
+    @ToOne(joinProperty = "belong_user")
+    private CNUser cnUser;
     private String parent_course;
+    /** Used to resolve relations */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+    /** Used for active entity operations. */
+    @Generated(hash = 473233972)
+    private transient CNCourseDao myDao;
+    @Generated(hash = 496694579)
+    private transient String cnUser__resolvedKey;
     @Generated(hash = 1486220648)
     public CNCourse(String course_id, String course_name, String course_type,
             String expired_date, String is_class, String lesson_count,
@@ -99,6 +115,72 @@ public class CNCourse {
     }
     public void setParent_course(String parent_course) {
         this.parent_course = parent_course;
+    }
+    /** To-one relationship, resolved on first access. */
+    @Generated(hash = 598063612)
+    public CNUser getCnUser() {
+        String __key = this.belong_user;
+        if (cnUser__resolvedKey == null || cnUser__resolvedKey != __key) {
+            final DaoSession daoSession = this.daoSession;
+            if (daoSession == null) {
+                throw new DaoException("Entity is detached from DAO context");
+            }
+            CNUserDao targetDao = daoSession.getCNUserDao();
+            CNUser cnUserNew = targetDao.load(__key);
+            synchronized (this) {
+                cnUser = cnUserNew;
+                cnUser__resolvedKey = __key;
+            }
+        }
+        return cnUser;
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 2006992350)
+    public void setCnUser(CNUser cnUser) {
+        synchronized (this) {
+            this.cnUser = cnUser;
+            belong_user = cnUser == null ? null : cnUser.getUser_id();
+            cnUser__resolvedKey = belong_user;
+        }
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 913164094)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getCNCourseDao() : null;
     }
 
 }
