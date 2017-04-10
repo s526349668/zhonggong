@@ -58,8 +58,8 @@ public class MyFragment extends Fragment {
 
     private void getData() {
         RequestParams params = new RequestParams("http://l.eoffcn.com/newapi/courses.html");
-//        params.addBodyParameter("course_id","");
-//        params.addBodyParameter("recursion","1");
+        params.addBodyParameter("course_id","");
+        params.addBodyParameter("recursion","1");
         x.http().post(params, new Callback.CommonCallback<String>(){
 
             @Override
